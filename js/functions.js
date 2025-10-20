@@ -6,12 +6,6 @@
  */
 const checkStringLength = (string, maxLength) => string.length <= maxLength;
 
-// Тест
-console.log('Тест первой функции - checkStringLength');
-console.log('Строка короче 20 символов:', checkStringLength('проверяемая строка', 20)); // true
-console.log('Длина строки ровно 18 символов:', checkStringLength('проверяемая строка', 18)); // true
-console.log('Строка длиннее 10 символов:', checkStringLength('проверяемая строка', 10)); // false
-
 
 /**
  * Функция для проверки, является ли строка палиндромом
@@ -33,10 +27,3 @@ const isPalindrome = (string) => {
   // Сравниваем нормальную строку и перевёрнутую
   return normalizedString === reversedString;
 };
-
-// Тест
-console.log('Тест второй функции - isPalindrome');
-console.log('"топот":', isPalindrome('топот')); // true
-console.log('"ДовОд":', isPalindrome('ДовОд')); // true
-console.log('"Кекс":', isPalindrome('Кекс')); // false
-console.log('"Лёша на полке клопа нашёл ":', isPalindrome('Лёша на полке клопа нашёл ')); // true
