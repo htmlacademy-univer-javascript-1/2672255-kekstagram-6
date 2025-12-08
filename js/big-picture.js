@@ -6,25 +6,22 @@ const commentsList = bigPicture.querySelector('.social__comments');
 const caption = bigPicture.querySelector('.social__caption');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 
-// скрываем счётчик и кнопку загрузки комментариев
 const commentCountBlock = bigPicture.querySelector('.social__comment-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 
-commentCountBlock.classList.add('hidden');
-commentsLoader.classList.add('hidden');
+commentCountBlock.classList.remove('hidden');
+commentsLoader.classList.remove('hidden');
 
-// функция закрытия окна (объявляем раньше, чтобы линтер не ругался)
-const closeBigPicture = () => {
-  bigPicture.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-};
+let allComments = [];
+let shownComments = 0;
+const COMMENTS_PER_PAGE = 5;
 
-// функция для отрисовки комментариев
-const renderComments = (comments) => {
-  commentsList.innerHTML = ''; // очищаем список
+// функция отрисовки части комментариев
+const renderComments = () => {
   const fragment = document.createDocumentFragment();
+  const nextComments = allComments.slice(shownComments, shownComments + COMMENTS_PER_PAGE);
 
-  comments.forEach(({ avatar, name, message }) => {
+  nextComments.forEach(({ avatar, name, message }) => {
     const li = document.createElement('li');
     li.classList.add('social__comment');
 
@@ -45,6 +42,24 @@ const renderComments = (comments) => {
   });
 
   commentsList.appendChild(fragment);
+  shownComments += nextComments.length;
+
+  // обновляем счётчик
+  commentCountBlock.textContent = `${shownComments} из ${allComments.length} комментариев`;
+
+  // скрываем кнопку, если комментарии закончились
+  if (shownComments >= allComments.length) {
+    commentsLoader.classList.add('hidden');
+  }
+};
+
+// функция закрытия окна
+const closeBigPicture = () => {
+  bigPicture.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  commentsList.innerHTML = '';
+  shownComments = 0;
+  allComments = [];
 };
 
 // функция открытия окна
@@ -58,7 +73,14 @@ const openBigPicture = (pictureData) => {
   commentsCount.textContent = pictureData.comments.length;
   caption.textContent = pictureData.description;
 
-  renderComments(pictureData.comments);
+  // сохраняем все комментарии и показываем первые 5
+  allComments = pictureData.comments;
+  shownComments = 0;
+  commentsList.innerHTML = '';
+  renderComments();
+
+  // обработчик кнопки "Загрузить ещё"
+  commentsLoader.onclick = () => renderComments();
 
   // обработчики закрытия
   const onEscKeyDown = (evt) => {
