@@ -1,4 +1,8 @@
-import { createPost } from './generate.js';
+import { createPosts } from './data.js';
+import { renderPictures } from './miniatures.js';
 
-const postsFromKekstagram = createPost(25);
-console.log(postsFromKekstagram);
+// Генерируем 25 постов
+const postsFromKekstagram = createPosts(25);
+
+// Отрисовываем их на странице
+renderPictures(postsFromKekstagram);
