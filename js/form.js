@@ -47,14 +47,6 @@ pristine.addValidator(uploadHashtagElement, checkUniqueness, errorMessages.UNIQU
 const isInputOnFocus = () =>
 document.activeElement === uploadHashtagElement || document.activeElement === uploadCommentElement;
 
-// Esc
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt) && !isInputOnFocus()) {
-    evt.preventDefault();
-    closeForm();
-  }
-};
-
 // Закрытие формы
 function closeForm() {
   uploadFormElement.reset();
@@ -64,6 +56,14 @@ function closeForm() {
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 }
+
+// Esc
+const onDocumentKeydown = (evt) => {
+  if (isEscapeKey(evt) && !isInputOnFocus()) {
+    evt.preventDefault();
+    closeForm();
+  }
+};
 
 // Открытие формы
 const openForm = () => {
@@ -133,7 +133,7 @@ uploadFormElement.addEventListener('submit', async (evt) => {
     const formData = new FormData(uploadFormElement);
     const response = await fetch('https://29.javascript.htmlacademy.pro/kekstagram', {
       method: 'POST',
-      body: formData,
+      body: formData
     });
 
     if (response.ok) {
