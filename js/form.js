@@ -44,10 +44,9 @@ pristine.addValidator(uploadHashtagElement, checkCount, errorMessages.COUNT_HASH
 pristine.addValidator(uploadHashtagElement, checkUniqueness, errorMessages.UNIQUENESS_ERROR);
 
 // Проверка фокуса
-const isInputOnFocus = () =>
-document.activeElement === uploadHashtagElement || document.activeElement === uploadCommentElement;
+const isInputOnFocus = () => document.activeElement === uploadHashtagElement || document.activeElement === uploadCommentElement;
 
-// Esc
+// Обработчик клавиши Esc
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt) && !isInputOnFocus()) {
     evt.preventDefault();
@@ -56,14 +55,14 @@ const onDocumentKeydown = (evt) => {
 };
 
 // Закрытие формы
-const closeForm = () => {
+function closeForm() {
   uploadFormElement.reset();
   pristine.reset();
-  uploadInputElement.value = ''; // сброс input[type=file]
+  uploadInputElement.value = '';
   uploadOverlayElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
-};
+}
 
 // Открытие формы
 const openForm = () => {
