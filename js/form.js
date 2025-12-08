@@ -47,6 +47,14 @@ pristine.addValidator(uploadHashtagElement, checkUniqueness, errorMessages.UNIQU
 const isInputOnFocus = () =>
 document.activeElement === uploadHashtagElement || document.activeElement === uploadCommentElement;
 
+// Esc
+const onDocumentKeydown = (evt) => {
+  if (isEscapeKey(evt) && !isInputOnFocus()) {
+    evt.preventDefault();
+    closeForm();
+  }
+};
+
 // Закрытие формы
 function closeForm() {
   uploadFormElement.reset();
@@ -56,14 +64,6 @@ function closeForm() {
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 }
-
-// Esc
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt) && !isInputOnFocus()) {
-    evt.preventDefault();
-    closeForm();
-  }
-};
 
 // Открытие формы
 const openForm = () => {
@@ -86,10 +86,14 @@ function showSuccessMessage() {
 
   button.addEventListener('click', close);
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') close();
+    if (evt.key === 'Escape') {
+      close();
+    }
   });
   message.addEventListener('click', (evt) => {
-    if (evt.target === message) close();
+    if (evt.target === message) {
+      close();
+    }
   });
 }
 
@@ -103,10 +107,14 @@ function showErrorMessage() {
 
   button.addEventListener('click', close);
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') close();
+    if (evt.key === 'Escape') {
+      close();
+    }
   });
   message.addEventListener('click', (evt) => {
-    if (evt.target === message) close();
+    if (evt.target === message) {
+      close();
+    }
   });
 }
 
