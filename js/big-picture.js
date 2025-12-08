@@ -13,6 +13,12 @@ const commentsLoader = bigPicture.querySelector('.comments-loader');
 commentCountBlock.classList.add('hidden');
 commentsLoader.classList.add('hidden');
 
+// функция закрытия окна (объявляем раньше, чтобы линтер не ругался)
+const closeBigPicture = () => {
+  bigPicture.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+};
+
 // функция для отрисовки комментариев
 const renderComments = (comments) => {
   commentsList.innerHTML = ''; // очищаем список
@@ -58,6 +64,7 @@ const openBigPicture = (pictureData) => {
   const onEscKeyDown = (evt) => {
     if (evt.key === 'Escape') {
       closeBigPicture();
+      document.removeEventListener('keydown', onEscKeyDown);
     }
   };
 
@@ -67,12 +74,6 @@ const openBigPicture = (pictureData) => {
     closeBigPicture();
     document.removeEventListener('keydown', onEscKeyDown);
   });
-};
-
-// функция закрытия окна
-const closeBigPicture = () => {
-  bigPicture.classList.add('hidden');
-  document.body.classList.remove('modal-open');
 };
 
 export { openBigPicture };
