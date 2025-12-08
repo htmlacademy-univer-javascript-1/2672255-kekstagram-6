@@ -8,7 +8,7 @@ const errorMessages = {
   INVALID_HASHTAG_STRING: 'Хэш-тег должен начинаться с #, состоять из букв и чисел без пробелов, максимальная длина одного хэш-тега 20 символов, включая #',
   COMMENT_MAXLENGTH_ERROR: `Длина комментария не может составлять больше ${COMMENT_MAXLENGTH} символов`,
   COUNT_HASHTAGS_ERROR: `Нельзя указать больше ${HASHTAGS_MAXCOUNT} хэш-тегов`,
-  UNIQUENESS_ERROR: 'Хэш-теги не должны повторяться',
+  UNIQUENESS_ERROR: 'Хэш-теги не должны повторяться'
 };
 
 const bodyElement = document.querySelector('body');
@@ -47,22 +47,22 @@ pristine.addValidator(uploadHashtagElement, checkUniqueness, errorMessages.UNIQU
 const isInputOnFocus = () =>
 document.activeElement === uploadHashtagElement || document.activeElement === uploadCommentElement;
 
-// Закрытие формы
-function closeForm() {
-  uploadFormElement.reset();
-  pristine.reset();
-  uploadInputElement.value = ''; // сброс input[type=file]
-  uploadOverlayElement.classList.add('hidden');
-  bodyElement.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeydown);
-}
-
 // Esc
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt) && !isInputOnFocus()) {
     evt.preventDefault();
     closeForm();
   }
+};
+
+// Закрытие формы
+const closeForm = () => {
+  uploadFormElement.reset();
+  pristine.reset();
+  uploadInputElement.value = ''; // сброс input[type=file]
+  uploadOverlayElement.classList.add('hidden');
+  bodyElement.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
 // Открытие формы
@@ -76,7 +76,7 @@ const openForm = () => {
 };
 
 // Сообщения успеха/ошибки
-function showSuccessMessage() {
+const showSuccessMessage = () => {
   const template = document.querySelector('#success').content.querySelector('.success');
   const message = template.cloneNode(true);
   document.body.appendChild(message);
@@ -95,9 +95,9 @@ function showSuccessMessage() {
       close();
     }
   });
-}
+};
 
-function showErrorMessage() {
+const showErrorMessage = () => {
   const template = document.querySelector('#error').content.querySelector('.error');
   const message = template.cloneNode(true);
   document.body.appendChild(message);
@@ -116,7 +116,7 @@ function showErrorMessage() {
       close();
     }
   });
-}
+};
 
 // Отправка формы
 uploadFormElement.addEventListener('submit', async (evt) => {
