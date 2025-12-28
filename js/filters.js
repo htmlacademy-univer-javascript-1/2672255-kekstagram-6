@@ -27,7 +27,7 @@ const getRandomUnique = (photos, count) => {
 };
 
 const getDiscussed = (photos) =>
-photos.slice().sort((a, b) => b.comments.length - a.comments.length);
+  photos.slice().sort((a, b) => b.comments.length - a.comments.length);
 
 const getFilters = (photos, renderPictures) => {
   filtersContainer.classList.remove('img-filters--inactive');
