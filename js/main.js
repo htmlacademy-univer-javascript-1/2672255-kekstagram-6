@@ -19,7 +19,6 @@ function init() {
   initScale();
   initEffects();
   validate();
-  showLoadError();
 }
 
 init();
