@@ -56,7 +56,6 @@ function updateCounter() {
 }
 
 export function openBigPicture(photo) {
-
   imgElement.src = photo.url;
   likesCount.textContent = photo.likes;
   commentsCount.textContent = photo.comments.length;
@@ -90,7 +89,9 @@ function onEscKey(evt) {
     closeBigPicture();
   }
 }
+
 commentsLoader.addEventListener('click', () => {
   renderNextComments();
 });
+
 closeButton.addEventListener('click', closeBigPicture);

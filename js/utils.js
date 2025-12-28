@@ -21,6 +21,28 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
+const createPhotos = (count) =>
+Array.from({ length: count }, getImageDescription);
+
+export { createPhotos };
+const showLoadError = (message) => {
+  const errorBlock = document.createElement('div');
+  errorBlock.classList.add('load-error');
+  errorBlock.textContent = message;
+  errorBlock.style.cssText = `
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff6b6b;
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    z-index: 1000;
+  `;
+  document.body.append(errorBlock);
+};
+
 import { descriptions, commentsList, names } from './data.js';
 const createRandomIdMsg = createRandomIdFromRangeGenerator(1, 1000);
 const createRandomId = createRandomIdFromRangeGenerator(1, 25);
@@ -45,7 +67,4 @@ const getImageDescription = () => ({
   comments: Array.from({ length: getRandomInteger(0, 30) }, getComments)
 });
 
-const createPhotos = (count) =>
-  Array.from({ length: count }, getImageDescription);
-
-export { createPhotos };
+export { showLoadError };

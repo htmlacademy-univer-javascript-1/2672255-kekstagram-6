@@ -29,3 +29,4 @@ export const renderPictures = (photos) => {
 
   container.appendChild(fragment);
 };
+export {renderPictures}
