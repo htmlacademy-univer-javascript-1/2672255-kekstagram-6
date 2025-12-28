@@ -70,16 +70,16 @@ const initImageUpload = () => {
 
     sendFormData(formData)
       .then(() => {
-      showSuccess();
-      closePhoto();
-    })
+        showSuccess();
+        closePhoto();
+      })
       .catch(() => {
-      showSubmitError();
-    })
+        showSubmitError();
+      })
       .finally(() => {
-      submitButton.disabled = false;
-      submitButton.textContent = 'Опубликовать';
-    });
+        submitButton.disabled = false;
+        submitButton.textContent = 'Опубликовать';
+      });
   });
 
   closeButton.addEventListener('click', closePhoto);

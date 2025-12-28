@@ -9,11 +9,11 @@ import { getPhotos } from './api.js';
 function init() {
   getPhotos()
     .then((photos) => {
-    renderPictures(photos);
-  })
+      renderPictures(photos);
+    })
     .catch((error) => {
-    showLoadError(`Ошибка загрузки данных: ${error.message}`);
-  });
+      showLoadError(`Ошибка загрузки данных: ${error.message}`);
+    });
 
   initImageUpload();
   initScale();

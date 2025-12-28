@@ -1,5 +1,5 @@
-
-import { scaleReset } from '.shapes.js';
+import { isEscapeKey } from './utils.js';
+import { scaleReset } from './shapes.js';
 import { resetEffects, initSlider, resetSlider } from './effects.js';
 
 const COMMENT_MAXLENGTH = 140;
@@ -48,7 +48,7 @@ pristine.addValidator(uploadHashtagElement, checkCount, errorMessages.COUNT_HASH
 pristine.addValidator(uploadHashtagElement, checkUniqueness, errorMessages.UNIQUENESS_ERROR);
 
 const isInputOnFocus = () =>
-document.activeElement === uploadHashtagElement || document.activeElement === uploadCommentElement;
+  document.activeElement === uploadHashtagElement || document.activeElement === uploadCommentElement;
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt) && !isInputOnFocus()) {
@@ -66,6 +66,7 @@ const openForm = () => {
     initSlider();
   });
 };
+
 function resetScale() {
   const scaleControl = document.querySelector('.scale__control--value');
   const imagePreview = document.querySelector('.img-upload__preview img');
@@ -76,26 +77,6 @@ function resetScale() {
   if (imagePreview) {
     imagePreview.style.transform = 'scale(1)';
   }
-}
-
-function resetEffects() {
-  const effectRadios = document.querySelectorAll('.effects__radio');
-  const imagePreview = document.querySelector('.img-upload__preview img');
-  const effectLevel = document.querySelector('.effect-level');
-
-  if (imagePreview) {
-    imagePreview.className = '';
-    imagePreview.style.filter = '';
-  }
-  if (effectLevel) {
-    effectLevel.classList.add('hidden');
-  }
-
-  effectRadios.forEach((input) => {
-    if (input.value === 'none') {
-      input.checked = true;
-    }
-  });
 }
 
 function closeForm() {
@@ -127,4 +108,7 @@ uploadHashtagElement.addEventListener('keydown', () => {
     pristine.reset();
   }
 });
-export { resetScale, resetEffects };
+
+openForm();
+
+export { resetScale };
