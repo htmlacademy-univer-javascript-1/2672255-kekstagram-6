@@ -23,7 +23,7 @@ const shuffleItems = (list) => {
 };
 
 const sortByPopularity = (first, second) =>
-second.comments.length - first.comments.length;
+  second.comments.length - first.comments.length;
 
 const processPictures = () => {
   const result = imageCollection.slice();

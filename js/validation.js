@@ -85,15 +85,15 @@ function handleFormSubmit(event) {
   const formData = new FormData(elements.form);
   sendData(formData)
     .then(() => {
-    closeForm();
-    displaySuccessMessage();
-  })
+      closeForm();
+      displaySuccessMessage();
+    })
     .catch(() => {
-    displayErrorMessage('Ошибка отправки формы!');
-  })
+      displayErrorMessage('Ошибка отправки формы!');
+    })
     .finally(() => {
-    elements.submitButton.disabled = false;
-  });
+      elements.submitButton.disabled = false;
+    });
 }
 
 function onFormKeydown(evt) {

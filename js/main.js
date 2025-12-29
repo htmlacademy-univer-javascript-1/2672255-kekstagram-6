@@ -12,9 +12,9 @@ initValidation();
 
 getData()
   .then((photos) => {
-  renderThumbnails(photos);
-  initFilter(photos);
-})
+    renderThumbnails(photos);
+    initFilter(photos);
+  })
   .catch(() => {
-  throw new Error('Не удалось загрузить фото');
-});
+    throw new Error('Не удалось загрузить фото');
+  });
