@@ -1,25 +1,32 @@
-const SERVER_URL = 'https://29.javascript.htmlacademy.pro/kekstagram';
-const DATA_URL = `${SERVER_URL}/data`;
+const API_URL = 'https://29.javascript.htmlacademy.pro/kekstagram';
 
-const getPhotos = () =>
-  fetch(DATA_URL)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Ошибка загрузки: ${response.status}`);
-      }
-      return response.json();
+const getData = async () => {
+  try {
+    const response = await fetch(`${API_URL}/data`);
+    if (!response.ok) {
+      throw new Error('Ошибка при загрузке данных');
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error(`Не удалось загрузить данные: ${error.message}`);
+  }
+};
+const getPhotos = async () => {
+  const photos = await getData(API_URL);
+  return photos;
+};
+const sendData = async (data) => {
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      body: data,
     });
+    if (!response.ok) {
+      throw new Error('Ошибка при отправке данных');
+    }
+  } catch (error) {
+    throw new Error(`Не удалось отправить данные: ${error.message}`);
+  }
+};
 
-const sendFormData = (formData) =>
-  fetch(SERVER_URL, {
-    method: 'POST',
-    body: formData,
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Ошибка отправки: ${response.status}`);
-      }
-      return response.json();
-    });
-
-export { getPhotos, sendFormData };
+export { getData, sendData, getPhotos };

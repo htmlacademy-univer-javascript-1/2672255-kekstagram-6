@@ -1,28 +1,19 @@
-const showLoadError = (message) => {
-  const errorBlock = document.createElement('div');
-  errorBlock.classList.add('load-error');
-  errorBlock.textContent = message;
-  errorBlock.style.cssText = `
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #ff6b6b;
-    color: white;
-    padding: 12px 20px;
-    font-size: 18px;
-    z-index: 1000;
-  `;
-  document.body.append(errorBlock);
+const DEBOUNCE_DELAY = 500;
+
+const getRandomNumber = (min, max) => {
+  const minValue = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const maxValue = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
+  return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
 };
 
-const debounce = (callback, timeoutDelay = 500) => {
-  let timeoutId;
+const getRandomFromArray = (items) => items[getRandomNumber(0, items.length - 1)];
 
-  return (...rest) => {
+const debounce = (callback, delay = DEBOUNCE_DELAY) => {
+  let timeoutId;
+  return (...args) => {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback(...rest), timeoutDelay);
+    timeoutId = setTimeout(() => callback(...args), delay);
   };
 };
 
-export { showLoadError, debounce };
+export { getRandomFromArray, getRandomNumber, debounce};

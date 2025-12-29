@@ -1,24 +1,20 @@
-import { renderPictures } from './pictures.js';
-import { initImageUpload } from './upload-form.js';
-import { initScale } from './shapes.js';
+import { renderThumbnails } from './thumbnail.js';
+import { getData } from './api.js';
+import { initFilter } from './filters.js';
 import { initEffects } from './effects.js';
-import { validate } from './validate.js';
-import { showLoadError } from './utils.js';
-import { getPhotos } from './api.js';
+import { initValidation } from './validation.js';
 
-function init() {
-  getPhotos()
-    .then((photos) => {
-      renderPictures(photos);
-    })
-    .catch((error) => {
-      showLoadError(`Ошибка загрузки данных: ${error.message}`);
-    });
+renderThumbnails();
 
-  initImageUpload();
-  initScale();
-  initEffects();
-  validate();
-}
+initEffects();
 
-init();
+initValidation();
+
+getData()
+  .then((photos) => {
+  renderThumbnails(photos);
+  initFilter(photos);
+})
+  .catch(() => {
+  throw new Error('Не удалось загрузить фото');
+});
